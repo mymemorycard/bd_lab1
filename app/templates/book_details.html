@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Book Details</title>
+
+  <style>
+    :root {
+      --primary: #6a11cb;
+      --secondary: #2575fc;
+      --accent: #ffb703;
+      --text-dark: #1f2937;
+      --glass-bg: rgba(255, 255, 255, 0.18);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    /* Main container */
+    .book-container {
+      width: 100%;
+      max-width: 800px;
+      background: var(--glass-bg);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 22px;
+      padding: 2.5rem;
+      box-shadow:
+        0 25px 50px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+
+    /* Header */
+    .book-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .book-title {
+      font-size: 2rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .book-author {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    /* Meta info grid */
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .meta-card {
+      background: rgba(255, 255, 255, 0.85);
+      color: var(--text-dark);
+      border-radius: 16px;
+      padding: 1.2rem 1.4rem;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
+      position: relative;
+    }
+
+    .meta-label {
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #6b7280;
+      margin-bottom: 0.35rem;
+    }
+
+    .meta-value {
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+
+    .price {
+      color: #16a34a;
+      font-size: 1.3rem;
+    }
+
+    /* Section titles */
+    .section-title {
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Genre tags */
+    .genre-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .genre-tag {
+      background: linear-gradient(135deg, var(--accent), #fb8500);
+      color: #000;
+      padding: 0.4rem 0.9rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Product links */
+    .links-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+    }
+
+    .product-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-dark);
+      border-radius: 14px;
+      padding: 1rem 1.2rem;
+      text-decoration: none;
+      font-weight: 700;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .product-link span {
+      font-size: 0.85rem;
+      color: #6b7280;
+    }
+
+    .product-link:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Footer buttons */
+    .footer-actions {
+      margin-top: 3rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      text-decoration: none;
+      padding: 0.8rem 2.2rem;
+      font-size: 0.95rem;
+      font-weight: 800;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), #fb8500);
+      color: #000;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .btn.secondary {
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--text-dark);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    @media (max-width: 600px) {
+      .book-container {
+        padding: 1.8rem;
+      }
+
+      .book-title {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="book-container">
+
+    <!-- Header -->
+    <div class="book-header">
+      <div class="book-title">{{book.name}}</div>
+      <div class="book-author">Автор: {{book.author}}</div>
+    </div>
+
+    <!-- Meta info -->
+    <div class="meta-grid">
+      <div class="meta-card">
+        <div class="meta-label">ISBN</div>
+        <div class="meta-value">{{book.isbn}}</div>
+      </div>
+
+      <div class="meta-card">
+        <div class="meta-label">Год выпуска</div>
+        <div class="meta-value">{{book.release_year}}</div>
+      </div>
+
+      <div class="meta-card">
+        <div class="meta-label">Цена</div>
+        <div class="meta-value price">₽{{book.price}}</div>
+      </div>
+    </div>
+
+    <!-- Genres -->
+    <div class="section-title">Жанры</div>
+    <div class="genre-list">
+      {% for genre in book.genre.all%}
+      <div class="genre-tag">{{genre}}</div>
+      {% endfor %}
+    </div>
+
+    <!-- Product URLs -->
+    <div class="section-title">Доступны в</div>
+    <div class="links-list">
+      {% for url in book.product_urls.all %}
+      <a href="{{url}}" class="product-link">
+        {{url.shop_name}}
+        <span>Купить →</span>
+      </a>
+      {% endfor %}
+    </div>
+
+    <!-- Footer actions -->
+    <div class="footer-actions">
+      <a href="/" class="btn secondary">← Назад</a>
+    </div>
+
+  </div>
+
+</body>
+
+</html>

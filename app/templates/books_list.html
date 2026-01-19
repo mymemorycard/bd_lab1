@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Fancy Books List</title>
+
+  <style>
+    :root {
+      --primary: #6a11cb;
+      --secondary: #2575fc;
+      --accent: #ffb703;
+      --text-dark: #1f2937;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", Tahoma, sans-serif;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    /* Container */
+    .container {
+      width: 100%;
+      max-width: 650px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 18px;
+      padding: 2rem;
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.25),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+
+    h1 {
+      text-align: center;
+      color: #ffffff;
+      margin-bottom: 2rem;
+      letter-spacing: 1px;
+    }
+
+    /* Book list */
+    .book-list {
+      list-style: none;
+      padding: 0;
+      margin-top: 2rem;
+    }
+
+    .book-item {
+      position: relative;
+      background: linear-gradient(135deg, #ffffff, #f3f4f6);
+      border-radius: 14px;
+      padding: 1.2rem 1.4rem;
+      margin-bottom: 1rem;
+      overflow: hidden;
+      text-decoration: none;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    a {
+      color: var(--text-dark);
+      text-decoration: none;
+    }
+
+
+    .book-item::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(120deg,
+          transparent,
+          rgba(106, 17, 203, 0.15),
+          transparent);
+      transform: translateX(-100%);
+      transition: transform 0.5s ease;
+    }
+
+    .book-item:hover::before {
+      transform: translateX(100%);
+    }
+
+    .book-item:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25);
+    }
+
+    .book-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      position: relative;
+      z-index: 1;
+    }
+
+    .button-wrapper {
+      display: flex;
+      justify-content: center;
+      margin-top: 2rem;
+    }
+
+    .next-btn {
+      text-decoration: none;
+      padding: 0.8rem 2.2rem;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--accent), #fb8500);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .next-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 26px rgba(0, 0, 0, 0.35);
+    }
+
+    .next-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+    }
+
+
+    /* Mobile */
+    @media (max-width: 500px) {
+      .container {
+        padding: 1.5rem;
+      }
+
+      .book-title {
+        font-size: 1rem;
+      }
+    }
+
+    .search-container {
+      width: 100%;
+      max-width: 480px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border-radius: 18px;
+      padding: 2rem;
+      box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.25),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+
+    h2 {
+      text-align: center;
+      color: #ffffff;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.5px;
+    }
+
+    /* Search box */
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      border-radius: 999px;
+      padding: 0.4rem;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+    }
+
+    .search-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 0.75rem 1rem;
+      font-size: 1rem;
+      border-radius: 999px;
+    }
+
+    .search-input::placeholder {
+      color: #9ca3af;
+    }
+
+    .search-btn {
+      border: none;
+      cursor: pointer;
+      padding: 0.65rem 1.4rem;
+      margin-left: 0.25rem;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #000;
+      background: linear-gradient(135deg, var(--accent), #fb8500);
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .search-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35);
+    }
+
+    .search-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.25);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1> 📚 BooksDB </h1>
+
+    <form class=" search-box" method="get">
+      <input type="search" name="search" class="search-input" placeholder="Название/Автор/ISBN">
+      <button type="submit" class="search-btn">
+        Найти
+      </button>
+    </form>
+
+    <ul class="book-list">
+      {% for book in books_list %}
+
+      <a href="/{{book.id}}">
+        <li class="book-item">
+          {{book}}
+        </li>
+      </a> {% endfor %}
+    </ul>
+    {% if page_obj.has_next %}
+    <div class="button-wrapper">
+      <a href="?page={{page_obj.next_page_number}}&search={{search}}" class="next-btn">Следующая страница →</a>
+    </div>
+    {% endif %}
+  </div>
+
+</body>
+
+</html>
